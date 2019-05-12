@@ -6065,7 +6065,7 @@ vm-browserify@0.0.4:
 
 "vrengine@https://github.com/danielesteban/VREngine.git":
   version "1.0.0"
-  resolved "https://github.com/danielesteban/VREngine.git#21b14d25e126277415972239c761f9c1bc82b532"
+  resolved "https://github.com/danielesteban/VREngine.git#f9bf1108a8ae55594e36d56f9c5c915686763db0"
   dependencies:
     fullscreen "^1.1.1"
     history "^4.9.0"
