@@ -116,7 +116,7 @@ class Menu extends Scene {
         },
         {
           font: '700 40px monospace',
-          text: __VERSION__,
+          text: `v${__VERSION__}`,
           x: 256,
           y: 280,
         },
