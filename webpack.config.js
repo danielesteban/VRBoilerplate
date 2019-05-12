@@ -19,7 +19,7 @@ const domain = process.env.DOMAIN || 'vrboilerplate.gatunes.com';
 const title = process.env.TITLE || 'VRBoilerplate';
 
 let version;
-if (fs.existsSync(path.resolve(__dirname, '..', '.git'))) {
+if (fs.existsSync(path.resolve(__dirname, '.git'))) {
   // Get version from the repo commit count
   let commitCount;
   try {
