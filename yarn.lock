@@ -6063,8 +6063,9 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vrengine@../VREngine/:
+"vrengine@https://github.com/danielesteban/VREngine.git":
   version "1.0.0"
+  resolved "https://github.com/danielesteban/VREngine.git#b46919c870f6df0e2c050b829d9fc54ecef7a823"
   dependencies:
     fullscreen "^1.1.1"
     history "^4.9.0"

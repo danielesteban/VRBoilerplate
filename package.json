@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "three": "^0.104.0",
-    "vrengine": "../VREngine/"
+    "vrengine": "https://github.com/danielesteban/VREngine.git"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
