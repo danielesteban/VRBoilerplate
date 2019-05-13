@@ -25,24 +25,58 @@ class Level1 extends Scene {
     engine.setAmbientSounds([DarkAmbient]);
     engine.setBackgroundColor(0x330000);
 
+    {
+      const texture = new TextureLoader().load(VoxelsTexture);
+      texture.repeat.set(1 / 8, 1);
+      texture.magFilter = NearestFilter;
+      texture.minFilter = NearestFilter;
+      this.voxelsTexture = texture;
+    }
+
     // Spawn some huge walls
     const walls = new Walls();
     this.add(walls);
 
-    // Spawn a ground plane
-    const ground = new Floor({
-      color: 0x662222,
-      width: 16,
-      height: 32,
-    });
-    this.add(ground);
-    this.intersects.push(ground);
+    // Spawn a platform
+    {
+      const size = 16;
+      const platform = new Voxels({
+        generator: ({ y }) => {
+          if (
+            y === 0
+          ) {
+            const light = (1 - Math.random() * 0.6) * 0x33;
+            return (
+              (0x03 << 24)
+              | (light << 16)
+              | (Math.floor(light * 0.25) << 8)
+              | Math.floor(light * 0.25)
+            );
+          }
+          return 0x00;
+        },
+        size,
+        texture: this.voxelsTexture,
+      });
+      platform.position.set(size * -0.5, -1, size * -0.5);
+      this.add(platform);
+      this.intersects.push(platform);
+
+      const ground = new Floor({
+        width: size,
+        height: size,
+      });
+      ground.material.visible = false;
+      ground.position.y += 0.001;
+      this.add(ground);
+      this.intersects.push(ground);
+    }
 
     // Spawn a disco ball
     const ball = new Ball({
       listener: engine.listener,
       color: 0x339933,
-      position: { x: 0, y: 1.25, z: -2.5 },
+      position: { x: 0, y: 2.5, z: -3 },
     });
     this.add(ball);
     this.intersects.push(ball);
@@ -53,11 +87,6 @@ class Level1 extends Scene {
       const size = 16;
       const origin = new Vector3(size * 0.5, size * 0.5, size * 0.5);
       const aux = new Vector3();
-      const texture = new TextureLoader().load(VoxelsTexture);
-      texture.repeat.set(1 / 8, 1);
-      texture.magFilter = NearestFilter;
-      texture.minFilter = NearestFilter;
-      this.voxelsTexture = texture;
       const voxels = new Voxels({
         generator: ({ x, y, z }) => {
           const d = aux.set(x, y, z).distanceTo(origin);
@@ -71,7 +100,7 @@ class Level1 extends Scene {
           );
         },
         size,
-        texture,
+        texture: this.voxelsTexture,
       });
       voxelsContainer.rotation.order = 'YXZ';
       voxelsContainer.rotation.x = Math.PI * 0.25;
@@ -82,7 +111,7 @@ class Level1 extends Scene {
       };
       voxels.position.set(-8, -8, -8);
       voxelsContainer.scale.set(0.02, 0.02, 0.02);
-      voxelsContainer.position.set(-1.5, 1.25, -2.5);
+      voxelsContainer.position.set(0, 1.25, -1.5);
       voxelsContainer.add(voxels);
       this.add(voxelsContainer);
       this.intersects.push(voxels);
@@ -121,8 +150,8 @@ class Level1 extends Scene {
         },
       },
     });
-    sign.position.set(2.5, 0, -2.5);
-    sign.lookAt(0, 1.5, 0);
+    sign.position.set(2.5, -0.25, -2.5);
+    sign.lookAt(0, 1.25, 0);
     this.add(sign);
     this.intersects.push(...sign.intersects);
   }
