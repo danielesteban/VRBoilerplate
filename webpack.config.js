@@ -2,7 +2,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const GHPagesSPAWebpackPlugin = require('ghpages-spa-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -45,7 +45,6 @@ if (mode === 'production') {
 module.exports = {
   mode,
   entry: [
-    '@babel/polyfill',
     path.join(srcPath, 'index.css'),
     path.join(srcPath, 'index.js'),
   ],
